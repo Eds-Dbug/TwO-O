@@ -1,0 +1,40 @@
+1.) NONNS
+Player
+TURN
+GAME 
+OVER
+QUESTION
+
+2.) classes
+
+#Player
+state: lives, dead
+
+behaviour: correct_answer: add a pioint to their score , reset? 
+
+3.) Methods 
+What information is relevant to each class?
+  player: -lives, dead
+  Game: get_player, get_questions
+  Question: just ran gen stuff
+What will they need in order to be initialized?
+  Player: lives = 3
+  Game: question = new question(), arr [players]
+  Question: new question
+What public methods will be defined on them?
+Furthermore:
+  Player: life_minus, is_dead , get_lives
+  Game: next_player
+  Question: check_answer
+
+
+Which class will contain the game loop (where each instance of the loop is the other players turn)?
+  GAME class will include the loop
+Which class should manage who the current_player is?
+  GAME class will manage the class
+Which class(es) will contain user I/O and which will not have any?
+  QUESTION  class will do the io 
+
+turn (turn + 1) % players.length 
+0 => (0+1) % 2 = 1
+1 => (1+1) % 2 = 0 
