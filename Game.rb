@@ -1,10 +1,12 @@
+
+
 require './Question'
 require './Player'
 
 class Game
   def initialize(players)
     @players = players
-    @curr = 0
+    @current_player = 0
   end
 
   def start
@@ -19,31 +21,34 @@ class Game
     exit(0)
   end
 
-  def turn
-    #players = [player1, player2 ....]
-    # turn = (turn + 1) % players.length
-    # 0 -> (0 + 1) % 
-    while !@players[@curr].is_dead do
-     
-      newQuestion = Question.new
-      newQuestion.print_question(@players[@curr])
-      print '> '
-      @userchoice = $stdin.gets.chomp
-      if newQuestion.answer
-        # if question is wrong than player.minus_life
-        # display message "wrong"
-        # display the scor
-      @curr = (@curr + 1) % @players.length
+  def show_stats
+    puts "P1: #{@players[0].lives}/3 vs P2: #{@players[1].lives}/3"
+  end
 
+    def turn
+      while !@players[@current_player].is_dead do
+        newQuestion = Question.new
+        newQuestion.print_question(@players[@current_player].name)
+        print '> '
+        @user_choice = $stdin.gets.chomp
+        if newQuestion.check_answer(@user_choice.to_i)
+          puts 'Yes! You are correct.'
+          show_stats
+        else
+          puts 'Seriously? No!'
+          @players[@current_player].minus_life
+          if @players[@current_player].is_dead
+            @current_player = (@current_player + 1) % @players.length
+            win(@players[@current_player])
+            
+          end
+          puts '---------NEW TURN--------'
+        show_stats
+      end
+      @current_player = (@current_player + 1) % @players.length
     end
-
-    win(@players[@curr])
-
-      # DISPLAY message #{player} wubs with score of 1/3 
-      # DISPLAY GAME OVER
     
 
-    # @players[0]
   end
 
 end
